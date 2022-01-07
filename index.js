@@ -20,22 +20,23 @@ async function start() {
     await fs.writeFile("hiddenMessage.txt", hiddenMessage);
 
     // scraping image src and downloading them on system
-    // const phtos = await page.$$eval("img", (imgs) => {
-    //     return imgs.map(x => x.src);
-    // })
+    const phtos = await page.$$eval("img", (imgs) => {
+        return imgs.map(x => x.src);
+    })
 
-    await page.type("#ourfield", "blue");
+    // filling form field:
+    await page.type("#ourfield", "brown");
 
     await Promise.all([page.click("#ourform button"), page.waitForNavigation()])
 
 
     const info = await page.$eval("#message", el => el.textContent);
-    // console.log(info);
+    console.log(info);
     fs.writeFile("secretText.txt", info)
-    // for (const phto of phtos) {
-    //     const imagePage = await page.goto(phto);
-    //     await fs.writeFile(phto.split("/").pop(), await imagePage.buffer())
-    // }
+    for (const phto of phtos) {
+        const imagePage = await page.goto(phto);
+        await fs.writeFile(phto.split("/").pop(), await imagePage.buffer())
+    }
 
 
 
