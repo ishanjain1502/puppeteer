@@ -38,6 +38,7 @@ async function start() {
         await fs.writeFile(phto.split("/").pop(), await imagePage.buffer())
     }
 
+    // Trying to scrape twitter;
 
 
     await browser.close()
